@@ -4,8 +4,8 @@ public class HW100 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		// this data needed for method findAcct
-		int[] acctNum = {1234};
-		double[] balance= {40};
+		int[] acctNum = {1234,12,433};
+		double[] balance= {40,12,234};
 		int numAccts = acctNum.length;
 		int account;//accout that we need to find in method findacct
 		
@@ -25,7 +25,7 @@ public class HW100 {
 			} else if(user_input == 'Q') {
 				System.out.println("BYE!");
 			} else if(user_input == 'X') {
-					
+				deleteAcct(acctNum, balance, numAccts, sc);
 			} else {
 				System.out.println("Try again!");
 			}
@@ -134,7 +134,6 @@ public class HW100 {
 			double balanceStatement = balance[index];
 			System.out.println(balanceStatement);
 		}
-
 	}
 	
 	public static void printAccts(int[] acctNum, double[] balance, int numAccts) {
@@ -145,5 +144,24 @@ public class HW100 {
 			for(int i = 0; i < acctNum.length; i++) {
 				System.out.printf("%-10d $%10.2f%n", acctNum[i], balance[i]);
 			}
+	}
+
+	public static int deleteAcct(int[] acctNum, double[] balance, int numAccts, Scanner sc) {
+			System.out.println("Enter your account number: ");
+			int user_acc_number = sc.nextInt();
+			int index = findAcct(acctNum,  numAccts, user_acc_number);
+
+			if(index == -1){
+				System.out.println("Account with number: "+ user_acc_number + " does not exist!");
+			} else{
+				for(int i = index; i < numAccts -1; i++){
+					acctNum[i] = acctNum[i+1];
+					balance[i] = balance[i+1];
+				}
+				numAccts--;
+				acctNum[numAccts] = 0;
+				balance[numAccts] = 0.0;
+			}
+			return numAccts;
 	}
 }
